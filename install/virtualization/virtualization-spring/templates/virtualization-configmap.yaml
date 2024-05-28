@@ -1,0 +1,61 @@
+apiVersion: v1
+data:
+  application.yml: |
+    ##### Virtualization Module Address Info ############################
+    server:
+      port: {{ .Values.server.port }}
+      servlet:
+        context-path: {{ .Values.server.servlet.contextPath }}
+    ##### Hyperdata Module Address Info ############################
+    webserver:
+      ip: {{ .Values.hyperdata.address }}
+      port: {{ .Values.hyperdata.port }}
+    ###
+    ##### Web Server Config ########################################
+    ws:
+      filepath: {{ .Values.pvc.mountPath }}/input
+      saveoutput_filepath: {{ .Values.pvc.mountPath }}/output
+      saveoutput_temp_filepath: {{ .Values.pvc.mountPath }}/temp
+    ### TIBERO
+    tibero:
+      ip: {{ .Values.db.address }}
+      port: {{ .Values.db.port }}
+      sid: {{ .Values.db.sid }}
+    ### TIBERO_EX
+    tibero_ex:
+      ip: {{ .Values.db.address }}
+      port: {{ .Values.db.port }}
+      sid: {{ .Values.db.sid }}
+    ### Spring
+    spring:
+      hive:
+        ip: {{ .Values.hive.ip }}
+        port: {{ .Values.hive.port }}
+        hcatalog_ip: {{ .Values.hive.hcatalog_ip }}
+        hcatalog_port: {{ .Values.hive.hcatalog_port }}
+      rabbitmq:
+        host: rabbitmq
+        port: 5672
+        username: {{ .Values.rabbitmq.username }}
+        password: {{ .Values.rabbitmq.password }}
+      metastore:
+        db: {{ .Values.metastore.db }}
+        ip: {{ .Values.metastore.ip }}
+        sid: {{ .Values.metastore.sid }}
+        port: {{ .Values.metastore.port }}
+        username: {{ .Values.metastore.username }}
+        password: {{ .Values.metastore.password }}
+      hdfs:
+        namenode_ip: {{ .Values.hdfs.namenode_ip }}
+        namenode_port: {{ .Values.hdfs.namenode_port }}
+    spark:
+      fair:
+        path: /home/virtualization/fair.xml
+      download:
+        maxRowNum: {{ .Values.spark.download.maxRowNum }}
+    logging:
+      config: /home/virtualization/log4j2-production.xml
+kind: ConfigMap
+metadata:
+  name: virtualization-spring-configmap
+

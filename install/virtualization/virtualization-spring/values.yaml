@@ -1,0 +1,75 @@
+busyboxImage: biqa.tmax.com/hyperdata20.5_rel/busybox:20230829_v1
+image: biqa.tmax.com/v20.5/hyperdata20.5_virtualization:20230504_v1
+
+proxy:
+  bodysize: 0
+  # minutes
+  timeout: 7200
+
+server:
+  port: 8100
+  servlet:
+    contextPath: /hyperdata20
+
+db:
+  address: tiberolocaldns
+  port: 8629
+  sid: tibero
+
+pvc:
+  name: tibero-pvc-db
+  mountPath: /db
+
+resources:
+  requests:
+    cpu: 2
+    memory: 4Gi
+  limits:
+    cpu: 2
+    memory: 4Gi
+
+hyperdata:
+  address: hyperdata-svc-hd
+  port: 8080
+
+loadBalancer:
+  enabled: true
+  ip: 192.168.179.38 #하이퍼데이터 로드밸런서 ip랑 같아야 함
+  extport: 8500
+
+logging:
+  path: HyperData/logs/virtualization
+  duration: 30d
+
+hostAlias:
+  ip: "192.168.220.220"
+  hostname: "k8s-19-worker04"
+
+version:
+  major: 20
+
+hive:
+  ip: localhost
+  port: 10000
+  hcatalog_ip: localhost
+  hcatalog_port: 9083
+
+rabbitmq:
+  username: VAdmin
+  password: tmaxtower
+
+hdfs:
+    namenode_ip: 192.168.120.149
+    namenode_port: 52525
+
+spark:
+  download:
+    maxRowNum: 100000
+
+metastore:
+  db: mysql
+  ip: 192.168.255.255
+  sid: metastore
+  port: 3306
+  username: root
+  password: root
